@@ -5,6 +5,7 @@
 #' @slot meta.data matrix of meta data, the number of rows should equal to the number of cells
 #' @slot gene.name a vector of names of genes with length equal to the number of genes 
 #' @slot data.name name of the dataset
+#' @slot data.name_subcohort name of the subcohort dataset
 #' @slot n number of cells in the dataset
 #' @slot n_subcohort number of cells in the subcohort dataset
 #' @slot p number of genes in the dataset
