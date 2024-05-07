@@ -32,6 +32,7 @@ SiFINeT <- setClass(
     meta.data = 'matrix',
     gene.name = 'vector',
     data.name = 'character',
+    data.name_subcohort = 'character',
     n = 'numeric',
     n_subcohort = 'numeric',
     p = 'numeric',
@@ -67,7 +68,7 @@ SiFINeT <- setClass(
 #' @export
 #' 
 create_SiFINeT_object <- function(counts, counts_subcohort, gene.name = NULL, 
-                                  meta.data = NULL, data.name = NULL, 
+                                  meta.data = NULL, data.name = NULL, data.name_subcohort = NULL,
                                   sparse = FALSE, rowfeature = TRUE){
   if (rowfeature){
     counts <- t(counts)
@@ -78,12 +79,13 @@ create_SiFINeT_object <- function(counts, counts_subcohort, gene.name = NULL,
   }
   if (is.null(data.name)){
     data.name <- "data1"
+    data.name_subcohort <- "data2"
   }
   if (is.null(meta.data)){
     meta.data <- matrix(0, nrow(counts), 0)
   }
   data <- list(counts = counts, counts_subcohort = counts_subcohort)
-  names(data) <- c("counts", "counts_subcohort")
+  names(data) <- c(data.name, data.name_subcohort)
   object <- new(
     Class = 'SiFINeT',
     data = data,
@@ -91,6 +93,7 @@ create_SiFINeT_object <- function(counts, counts_subcohort, gene.name = NULL,
     meta.data = meta.data,
     gene.name = gene.name,
     data.name = data.name,
+    data.name_subcohort = data.name_subcohort,
     n = nrow(counts),
     n_subcohort = nrow(counts_subcohort),
     p = ncol(counts),
