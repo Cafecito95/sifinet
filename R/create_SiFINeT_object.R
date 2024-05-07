@@ -6,7 +6,9 @@
 #' @slot gene.name a vector of names of genes with length equal to the number of genes 
 #' @slot data.name name of the dataset
 #' @slot n number of cells in the dataset
+#' @slot n_subcohort number of cells in the subcohort dataset
 #' @slot p number of genes in the dataset
+#' @slot p_subcohort number of genes in the subcohort dataset
 #' @slot data.thres binarized count matrix 
 #' @slot coexp matrix of genes coexpression
 #' @slot est_ms estimated mean and sd of coexpression values
