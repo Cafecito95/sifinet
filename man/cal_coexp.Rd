@@ -10,7 +10,6 @@ cal_coexp(X)
 }
 \arguments{
 \item{X}{Input binarized cell (row) by gene (column) matrix}
-}
 \item{X_subcohort}{Subcohort input binarized cell (row) by gene (column) matrix}
 }
 \value{
