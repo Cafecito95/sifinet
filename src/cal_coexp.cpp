@@ -9,7 +9,7 @@
 //' @return Coexpression matrix
 //' @export
 // [[Rcpp::export]]
-arma::mat cal_coexp(arma::mat X){
+arma::mat cal_coexp(arma::mat X, arma::mat X_subcohort){
   int p = X.n_cols;
   int n = X.n_rows;
   arma::vec q(p);
@@ -17,8 +17,8 @@ arma::mat cal_coexp(arma::mat X){
     q(i) = mean(X.col(i));
   }
   arma::vec mq = 1 - q;
-  arma::mat c = X.t() * X - q * q.t() * n;
-  arma::mat d = sqrt(n * q * q.t() % (mq * mq.t()));
+  arma::mat c = X_subcohort.t() * X_subcohort - q * q.t() * n;
+  arma::mat d = sqrt(X_subcohort.n_rows * q * q.t() % (mq * mq.t()));
   
   return(c / d);
 }
