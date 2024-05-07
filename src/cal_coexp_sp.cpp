@@ -17,8 +17,8 @@ arma::mat cal_coexp_sp(arma::sp_mat X, arma::sp_mat X_subcohort){
     q(i) = mean(X.col(i));
   }
   arma::vec mq = 1 - q;
-  arma::mat c = X.t() * X - q * q.t() * n;
-  arma::mat d = sqrt(n * q * q.t() % (mq * mq.t()));
+  arma::mat c = X_subcohort.t() * X_subcohort - q * q.t() * n;
+  arma::mat d = sqrt(X_subcohort.n_rows * q * q.t() % (mq * mq.t()));
   
   return(c / d);
 }
