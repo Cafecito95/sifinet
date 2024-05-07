@@ -24,24 +24,24 @@ BEGIN_RCPP
 END_RCPP
 }
 // cal_coexp
-arma::mat cal_coexp(arma::mat X);
+arma::mat cal_coexp(arma::mat X, arma::mat X_subcohort);
 RcppExport SEXP _SiFINeT_cal_coexp(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(cal_coexp(X));
+    rcpp_result_gen = Rcpp::wrap(cal_coexp(X, X_subcohort));
     return rcpp_result_gen;
 END_RCPP
 }
 // cal_coexp_sp
-arma::mat cal_coexp_sp(arma::sp_mat X);
+arma::mat cal_coexp_sp(arma::sp_mat X, arma::sp_mat X_subcohort);
 RcppExport SEXP _SiFINeT_cal_coexp_sp(SEXP XSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< arma::sp_mat >::type X(XSEXP);
-    rcpp_result_gen = Rcpp::wrap(cal_coexp_sp(X));
+    rcpp_result_gen = Rcpp::wrap(cal_coexp_sp(X, X_subcohort));
     return rcpp_result_gen;
 END_RCPP
 }
