@@ -1,7 +1,7 @@
 #' The SiFINeT Class
 #'
-#' @slot data a list of cell (row) by gene (column) count matrix, either regular or sparse matrix
-#' @slot sparse whether the count matrix should be analyzed as sparse matrix
+#' @slot data a list of cell (row) by gene (column) count matrices ("counts" and "counts_subcohort")
+#' @slot sparse whether the count matrices should be analyzed as sparse matrices
 #' @slot meta.data matrix of meta data, the number of rows should equal to the number of cells
 #' @slot gene.name a vector of names of genes with length equal to the number of genes 
 #' @slot data.name name of the dataset
@@ -33,7 +33,9 @@ SiFINeT <- setClass(
     gene.name = 'vector',
     data.name = 'character',
     n = 'numeric',
+    n_subcohort = 'numeric',
     p = 'numeric',
+    p_subcohort = 'numeric',
     data.thres = 'list',
     coexp = 'matrix',
     est_ms = 'list',
@@ -54,26 +56,25 @@ SiFINeT <- setClass(
 #' 
 #' The function classifies count data based on thresholds 
 #' defined by quantile regression
-#' @param counts count matrix
+#' @param counts primary count matrix
+#' @param counts_subcohort sub-cohort count matrix
 #' @param gene.name name of the features
 #' @param meta.data data.frame of meta data
 #' @param data.name name of dataset
-#' @param sparse whether the count matrix should be analyzed as sparse matrix
-#' @param rowfeature whether the count matrix is feature (row) by cell (column) 
+#' @param sparse whether the count matrices should be analyzed as sparse matrices
+#' @param rowfeature whether the count matrices are feature (row) by cell (column) 
 #' @return a SiFINeT object
 #' @export
 #' 
-create_SiFINeT_object <- function(counts, gene.name = NULL, 
-                                meta.data = NULL, data.name = NULL, 
-                                sparse = FALSE, rowfeature = TRUE){
-  if (rowfeature == TRUE){
-  	counts <- t(counts)
+create_SiFINeT_object <- function(counts, counts_subcohort, gene.name = NULL, 
+                                  meta.data = NULL, data.name = NULL, 
+                                  sparse = FALSE, rowfeature = TRUE){
+  if (rowfeature){
+    counts <- t(counts)
+    counts_subcohort <- t(counts_subcohort)
   }
   if (is.null(gene.name)){
     gene.name <- colnames(counts)
-  }
-  if (is.null(gene.name)){
-    gene.name <- 1:ncol(counts)
   }
   if (is.null(data.name)){
     data.name <- "data1"
@@ -81,8 +82,8 @@ create_SiFINeT_object <- function(counts, gene.name = NULL,
   if (is.null(meta.data)){
     meta.data <- matrix(0, nrow(counts), 0)
   }
-  data <- list(counts)
-  names(data) <- data.name
+  data <- list(counts = counts, counts_subcohort = counts_subcohort)
+  names(data) <- c("counts", "counts_subcohort")
   object <- new(
     Class = 'SiFINeT',
     data = data,
@@ -91,7 +92,9 @@ create_SiFINeT_object <- function(counts, gene.name = NULL,
     gene.name = gene.name,
     data.name = data.name,
     n = nrow(counts),
+    n_subcohort = nrow(counts_subcohort),
     p = ncol(counts),
+    p_subcohort = ncol(counts_subcohort),
     q5 = apply(counts, 2, quantile, 0.5),
     kset = 1:ncol(counts),
     featureset = list(unique = list(),
