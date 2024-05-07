@@ -20,21 +20,23 @@ EstNull <- function(x, gamma = 0.1) {
 #' and returns the coexpression matrix.
 #' @author Qi Gao
 #' @param X Input binarized cell (row) by gene (column) matrix
+#' @param X_subcohort Subset of the binarized cell by gene matrix used for coexpression calculation
 #' @return Coexpression matrix
 #' @export
-cal_coexp <- function(X) {
-    .Call(`_SiFINeT_cal_coexp`, X)
+cal_coexp <- function(X, X_subcohort) {
+    .Call(`_SiFINeT_cal_coexp`, X, X_subcohort)
 }
 
 #' cal_coexp_sp
 #' This function calculates the coexpression patterns between genes
 #' in sparse matrix and returns the coexpression matrix.
 #' @author Qi Gao
-#' @param X Input binarized cell (row) by gene (column) sparse matrix
+#' @param X Input binarized cell (row) by gene (column) matrix
+#' @param X_subcohort Subset of the binarized cell by gene matrix used for coexpression calculation
 #' @return Coexpression matrix
 #' @export
-cal_coexp_sp <- function(X) {
-    .Call(`_SiFINeT_cal_coexp_sp`, X)
+cal_coexp_sp <- function(X, X_subcohort) {
+    .Call(`_SiFINeT_cal_coexp_sp`, X, X_subcohort)
 }
 
 #' cal_conn
