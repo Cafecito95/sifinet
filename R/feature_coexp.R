@@ -10,9 +10,9 @@
 #' 
 feature_coexp <- function(so){
   if (so@sparse == FALSE){
-    so@coexp <- cal_coexp(so@data.thres[[so@data.name]])
+    so@coexp <- cal_coexp(so@data.thres[[so@data.name]], so@data.thres[[so@data.name_subcohort]])
   } else {
-    so@coexp <- cal_coexp_sp(so@data.thres[[so@data.name]])
+    so@coexp <- cal_coexp_sp(so@data.thres[[so@data.name]], so@data.thres[[so@data.name_subcohort]])
   }
   diag(so@coexp) <- 0
   return(so)
