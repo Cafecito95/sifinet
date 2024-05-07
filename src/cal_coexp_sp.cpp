@@ -9,7 +9,7 @@
 //' @return Coexpression matrix
 //' @export
 // [[Rcpp::export]]
-arma::mat cal_coexp_sp(arma::sp_mat X){
+arma::mat cal_coexp_sp(arma::sp_mat X, arma::sp_mat X_subcohort){
   int p = X.n_cols;
   int n = X.n_rows;
   arma::vec q(p);
