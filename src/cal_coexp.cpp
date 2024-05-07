@@ -10,8 +10,8 @@
 //' @export
 // [[Rcpp::export]]
 arma::mat cal_coexp(arma::mat X, arma::mat X_subcohort){
-  int p = X.n_cols;
-  int n = X.n_rows;
+  int p = X_subcohort.n_cols;
+  int n = X_subcohort.n_rows;
   arma::vec q(p);
   for(int i = 0; i < p; i++){
     q(i) = mean(X_subcohort.col(i));
